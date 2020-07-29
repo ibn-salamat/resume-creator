@@ -1,0 +1,29 @@
+{
+  "name": "resume-creator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NURLYKHAN06/resume-creator.git"
+  },
+  "keywords": [
+    "nodejs",
+    "react",
+    "effector"
+  ],
+  "author": "n.salamatoff@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NURLYKHAN06/resume-creator/issues"
+  },
+  "homepage": "https://github.com/NURLYKHAN06/resume-creator#readme"
+}
