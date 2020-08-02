@@ -1,16 +1,24 @@
 import React, { useEffect } from "react";
+import { RootRouter } from "./routes/RootRouter";
+import { Grommet } from "grommet";
 
-function App() {
+const theme = {
+  global: {
+    font: {
+      family: "Roboto",
+      size: "18px",
+      height: "20px",
+    },
+  },
+};
+
+export function App() {
   useEffect(() => {
-    fetch("api/auth")
-      .then((r) => r.json())
-      .then((a) => console.log(a));
+    console.log("did mount!");
   }, []);
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <Grommet theme={theme}>
+      <RootRouter />
+    </Grommet>
   );
 }
-
-export default App;
