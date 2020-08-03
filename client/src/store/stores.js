@@ -1,11 +1,9 @@
 import { createStore, createEvent } from "effector";
 
-export const userChanged = createEvent("User changed");
-
+// user
+export const userChange = createEvent("User change");
 export const $user = createStore(null);
 
-// store.on(event, (state, payload) => newState)
+$user.on(userChange, (state, user) => user);
 
-$user.on(userChanged, (state, newState) => newState);
-
-$user.watch((state, payload) => console.log(state));
+$user.watch((state) => console.log(state));

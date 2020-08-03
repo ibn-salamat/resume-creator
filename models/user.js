@@ -15,9 +15,17 @@ const UserSchema = new Schema({
     required: true,
     type: String,
   },
+  gender: {
+    required: true,
+    type: String,
+  },
   password: {
     required: true,
     type: String,
+  },
+  birthday: {
+    type: Schema.Types.Number,
+    default: 0,
   },
   resumes: {
     type: [ResumeSchema],

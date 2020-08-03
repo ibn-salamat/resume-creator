@@ -1,6 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import { RootRouter } from "./routes/RootRouter";
 import { Grommet } from "grommet";
+import { Header } from "./components/Header";
+
+import { useStore } from "effector-react";
+import { $user, userChange } from "./store/stores";
 
 const theme = {
   global: {
@@ -13,12 +18,14 @@ const theme = {
 };
 
 export function App() {
-  useEffect(() => {
-    console.log("did mount!");
-  }, []);
+  const user = useStore($user);
+
   return (
-    <Grommet theme={theme}>
-      <RootRouter />
-    </Grommet>
+    <Router>
+      <Grommet theme={theme}>
+        <Header user={user} />
+        <RootRouter />
+      </Grommet>
+    </Router>
   );
 }
