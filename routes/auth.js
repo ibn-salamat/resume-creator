@@ -13,7 +13,10 @@ router.post("/signup", async (req, res) => {
     if (candidate) {
       res
         .status(400)
-        .json({ message: "User has been created with this email." });
+        .json({
+          message: "User has been created with this email.",
+          error: true,
+        });
     } else {
       const user = new User(newUser);
       await user.save();

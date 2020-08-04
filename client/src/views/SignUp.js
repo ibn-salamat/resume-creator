@@ -1,29 +1,23 @@
 import React, { useState } from "react";
-import { TextInput, RadioButtonGroup, Button, Select } from "grommet";
+import { TextInput, Button, Select } from "grommet";
 import { useForm } from "react-hook-form";
-
-import { API_SIGNUP } from "../api/config";
+import { useHistory } from "react-router-dom";
+import { signUp } from "../api/auth";
 
 export const SignUp = () => {
-  const { register, handleSubmit, watch, errors } = useForm();
-  const onSubmit = (data) => {
+  const history = useHistory();
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = async (data) => {
     const newData = {
       ...data,
       gender,
     };
 
-    if (data.password !== data.repassword) return (errors.password = true);
+    if (data.password !== data.repassword) return;
 
     delete newData.repassword;
-    fetch(API_SIGNUP, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newData),
-    })
-      .then((r) => r.json())
-      .then((data) => console.log(data));
+    await signUp(newData);
+    history.push("/");
   };
 
   const [gender, setGender] = useState("male");
@@ -72,7 +66,8 @@ export const SignUp = () => {
           type="submit"
           primary
           label="Submit"
-        />
+          icon={<div className="lds-dual-ring"></div>}
+        ></Button>
       </form>
     </div>
   );
