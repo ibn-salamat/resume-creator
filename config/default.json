@@ -1,4 +1,5 @@
 {
   "port": 5000,
-  "mongoURI": "mongodb+srv://nurlykhan:qwerty123@cluster0.nugrl.azure.mongodb.net/app?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://nurlykhan:qwerty123@cluster0.nugrl.azure.mongodb.net/app?retryWrites=true&w=majority",
+  "jwtSecret": "mern resume app by nurlykhan"
 }
