@@ -1,5 +1,6 @@
 import { Home } from "../views/Home";
 import { SignUp } from "../views/SignUp";
+import { SignIn } from "../views/SignIn";
 
 export const routes = [
   {
@@ -10,5 +11,9 @@ export const routes = [
   {
     path: "/signup",
     component: SignUp,
+  },
+  {
+    path: "/signin",
+    component: SignIn,
   },
 ];
