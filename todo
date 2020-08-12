@@ -3,15 +3,17 @@ login+
 
 get user by id+
 
+get users list+
+
 add resume
 update resume
 delete resume
 
 
-
-get users list
-get list preview resumes
 get resume by id
+
+
+
 
 
 

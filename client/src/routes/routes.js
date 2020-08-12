@@ -2,6 +2,7 @@ import { Home } from "../views/Home";
 import { SignUp } from "../views/SignUp";
 import { SignIn } from "../views/SignIn";
 import { MyProfile } from "../views/MyProfile";
+import { Users } from "../views/Users";
 
 export const routes = [
   {
@@ -20,5 +21,9 @@ export const routes = [
   {
     path: "/myprofile",
     component: MyProfile,
+  },
+  {
+    path: "/users",
+    component: Users,
   },
 ];

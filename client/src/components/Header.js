@@ -3,6 +3,21 @@ import { Menu, Header as HeaderComponent, Button } from "grommet";
 import { Home } from "grommet-icons";
 import { useHistory, NavLink } from "react-router-dom";
 
+const links = [
+  {
+    label: "Users list",
+    path: "/users",
+  },
+  {
+    label: "Resume list",
+    path: "/resumes",
+  },
+  {
+    label: "About us",
+    path: "/about",
+  },
+];
+
 const _accountMenuItems = {
   isAuthenticated: [
     {
@@ -47,6 +62,13 @@ export const Header = ({ user }) => {
           <Button hoverIndicator icon={<Home />} />
         </NavLink>
 
+        {links.map(({ label, path }) => {
+          return (
+            <Button key={label}>
+              <NavLink to={path}>{label}</NavLink>
+            </Button>
+          );
+        })}
         <Menu label="account" items={accountMenuItems} />
       </HeaderComponent>
     </>

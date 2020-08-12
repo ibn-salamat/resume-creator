@@ -5,6 +5,7 @@ export const API_SIGNUP = "api/auth/signup";
 export const API_SIGNIN = "api/auth/signin";
 
 export const API_GET_USER_DATA = (id) => `api/users/${id}`;
+export const API_GET_USERS = (length) => `api/users/list/${length}`;
 
 export function postRequest(url, body) {
   const token = getToken();
