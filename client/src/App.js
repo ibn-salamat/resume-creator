@@ -5,8 +5,9 @@ import { Grommet } from "grommet";
 import { Header } from "./components/Header";
 
 import { useStore } from "effector-react";
-import { $user, userChange } from "./store/stores";
+import { $user } from "./store/stores";
 import { checkToken } from "./utils/token";
+import { getUserById } from "./api/user";
 
 const theme = {
   global: {
@@ -24,6 +25,12 @@ export function App() {
   useEffect(() => {
     checkToken();
   }, []);
+
+  useEffect(() => {
+    if (user && user.id && !user.fullDataLoaded) {
+      getUserById(user.id);
+    }
+  }, [user]);
 
   return (
     <Router>

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { Menu, Header as HeaderComponent, Button } from "grommet";
 import { Home } from "grommet-icons";
-import { userChange } from "../store/stores";
 import { useHistory, NavLink } from "react-router-dom";
 
 const _accountMenuItems = {
   isAuthenticated: [
     {
       label: "My Profile",
+      path: "/myprofile",
     },
     {
       label: "Sign Out",
