@@ -1,0 +1,50 @@
+title: String
+img: String
+Personal info: [
+{
+	type: String(City)
+	label: String,
+},
+{
+	type: String(Email)
+	label: String,
+},
+{
+	type: String(Phone)
+	label: String,
+}
+]
+Skills: [String]
+Languages: [
+{
+language,
+level
+}
+]
+
+Blocks: [
+{
+label: Educatin
+content: [
+ name,
+ subname,
+  year: {
+	from,
+	till
+	},
+]
+},
+{
+label: Work experience
+content: [
+ name,
+ subname,
+ year: {
+	from,
+	till
+	},
+]
+}
+]
+
+About: String
