@@ -1,6 +1,6 @@
 import { postRequest, API_SIGNUP, API_SIGNIN } from "./config";
 import { setToken } from "../utils/token";
-import { userChange } from "../store/stores";
+import { userChange } from "../store/user";
 
 export const signUp = async (newUser) => {
   const data = await postRequest(API_SIGNUP, newUser);

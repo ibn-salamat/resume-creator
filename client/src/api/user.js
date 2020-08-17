@@ -1,5 +1,6 @@
 import { getRequest, API_GET_USER_DATA, API_GET_USERS } from "./config";
-import { userChange } from "../store/stores";
+import { updateUsersList } from "../store/usersList";
+import { userChange } from "../store/user";
 
 export const getUserById = async (id) => {
   const url = API_GET_USER_DATA(id);
@@ -10,5 +11,5 @@ export const getUserById = async (id) => {
 export const getUsers = async (length) => {
   const url = API_GET_USERS(length);
   const data = await getRequest(url);
-  console.log(data);
+  updateUsersList(data.data);
 };

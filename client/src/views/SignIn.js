@@ -9,7 +9,7 @@ export const SignIn = () => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (data) => {
     await signIn(data);
-    history.push("/profile");
+    history.push("/myprofile");
   };
 
   return (

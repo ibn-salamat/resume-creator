@@ -5,7 +5,7 @@ import { Grommet } from "grommet";
 import { Header } from "./components/Header";
 
 import { useStore } from "effector-react";
-import { $user } from "./store/stores";
+import { $user } from "./store/user";
 import { checkToken } from "./utils/token";
 import { getUserById } from "./api/user";
 

@@ -2,15 +2,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const config = require("config");
-
-const authRoutes = require("./routes/auth");
-const usersRoutes = require("./routes/users");
+const routes = require("./routes");
 
 const app = express();
-app.use(express.json({ extended: true }));
 
-app.use("/api/auth", authRoutes);
-app.use("/api/users", usersRoutes);
+app.use(express.json({ extended: true }));
+app.use("/api", routes);
 
 const PORT = config.get("port") || 5000;
 

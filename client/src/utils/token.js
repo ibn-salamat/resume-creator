@@ -1,4 +1,4 @@
-import { userChange, $user } from "../store/stores";
+import { userChange, $user } from "../store/user";
 import decode from "jwt-decode";
 
 export function checkToken() {
