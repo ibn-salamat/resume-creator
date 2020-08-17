@@ -3,6 +3,9 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+p {
+  margin: 5px 0;
+}
 .lds-dual-ring {
   display: inline-block;
   width: 80px;
@@ -11,6 +14,10 @@ body {
 a {
   text-decoration: none;
   color: unset;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 button {
   padding: 10px 17px !important;
