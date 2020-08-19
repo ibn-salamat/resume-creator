@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { TextInput, Anchor, Button } from "grommet";
@@ -10,8 +10,41 @@ export function Second() {
   const user = useStore($user);
   const { register, handleSubmit, errors } = useForm();
 
+  const [contacts, setContacts] = useState([]);
+
   const onSubmit = (data) => {
     console.log(data);
+  };
+
+  const showContactsField = () => {
+    const uniqueId = Number(new Date());
+    const _contacts = [
+      ...contacts,
+      {
+        id: uniqueId,
+        title: "Email/phone number/website",
+        value: "example@mail.com",
+      },
+    ];
+    setContacts(_contacts);
+  };
+
+  const handleChangeContacts = ({ target }) => {
+    console.log(target.value);
+    const data = target.name.split("=");
+    const [key, id] = data;
+    const _contacts = contacts.map((contact) =>
+      contact.id == id
+        ? {
+            ...contact,
+            [key]: target.value,
+          }
+        : contact
+    );
+
+    console.log(_contacts);
+
+    setContacts(_contacts);
   };
 
   return (
@@ -40,10 +73,13 @@ export function Second() {
 
           <Field>
             <p>Date of birth:</p>
+            <p>if you dont want to show date birth write 00.00.0000</p>
             <TextInput
               name="birthday"
               ref={register({ required: true })}
-              defaultValue={user.birthday}
+              defaultValue={
+                user.birthday === 0 ? new Date().toLocaleDateString() : user.birthday
+              }
             />
           </Field>
 
@@ -55,6 +91,37 @@ export function Second() {
               defaultValue={user.email}
             />
           </Field>
+
+          {contacts.map(({ title, value, id }) => {
+            return (
+              <Field key={id}>
+                <p>{title}:</p>
+                <TextInput
+                  name={"title=" + id}
+                  ref={register({ required: true })}
+                  defaultValue={title}
+                  onChange={handleChangeContacts}
+                />
+
+                <TextInput
+                  name={"value=" + id}
+                  ref={register({ required: true })}
+                  defaultValue={value}
+                  onChange={handleChangeContacts}
+                />
+              </Field>
+            );
+          })}
+
+          <Button onClick={showContactsField}>Add contacts</Button>
+
+          <Button>Add skills</Button>
+
+          <Button>Add work history</Button>
+
+          <Button>Add education history</Button>
+
+          <Button>Add description about yourself</Button>
 
           <Button primary type="submit">
             Next
