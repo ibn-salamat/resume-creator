@@ -11,17 +11,17 @@ export function Second() {
   const { register, handleSubmit, errors } = useForm();
 
   const [contacts, setContacts] = useState([]);
+  const [experienceHistory, setExperienceHistory] = useState({ work: [], education: [] });
 
   const onSubmit = (data) => {
     console.log(data);
   };
 
   const showContactsField = () => {
-    const uniqueId = Number(new Date());
     const _contacts = [
       ...contacts,
       {
-        id: uniqueId,
+        id: Number(new Date()),
         title: "Email/phone number/website",
         value: "example@mail.com",
       },
@@ -30,7 +30,6 @@ export function Second() {
   };
 
   const handleChangeContacts = ({ target }) => {
-    console.log(target.value);
     const data = target.name.split("=");
     const [key, id] = data;
     const _contacts = contacts.map((contact) =>
@@ -42,11 +41,49 @@ export function Second() {
         : contact
     );
 
-    console.log(_contacts);
-
     setContacts(_contacts);
   };
 
+  const deleteContacts = (id) => {
+    const _contacts = contacts.filter((contact) => contact.id != id);
+    setContacts(_contacts);
+  };
+
+  const showHistory = (type) => {
+    const _list = [
+      ...experienceHistory[type],
+      {
+        id: Number(new Date()),
+        place: type + " place",
+        position: type === "education" ? null : "",
+        startDate: "",
+        endDate: "",
+      },
+    ];
+
+    setExperienceHistory({ ...experienceHistory, [type]: _list });
+  };
+
+  const handleChangeExperienceHistory = ({ target }) => {
+    const data = target.name.split("=");
+    const { value } = target;
+    const [experienceType, experienceTitle, id] = data;
+
+    let _experiences = experienceHistory[experienceType];
+
+    _experiences = _experiences.map((experience) =>
+      experience.id == id
+        ? {
+            ...experience,
+            [experienceTitle]: value,
+          }
+        : experience
+    );
+
+    setExperienceHistory({ ...experienceHistory, [experienceType]: _experiences });
+  };
+
+  console.log(experienceHistory);
   return (
     <div>
       <H2>Second step</H2>
@@ -99,27 +136,74 @@ export function Second() {
                 <TextInput
                   name={"title=" + id}
                   ref={register({ required: true })}
-                  defaultValue={title}
+                  placeholder={title}
                   onChange={handleChangeContacts}
                 />
 
                 <TextInput
                   name={"value=" + id}
                   ref={register({ required: true })}
-                  defaultValue={value}
+                  placeholder={value}
                   onChange={handleChangeContacts}
                 />
+                <Button onClick={() => deleteContacts(id)}>Delete</Button>
               </Field>
             );
           })}
 
+          {experienceHistory.work.map(({ id, place, position, startDate, endDate }) => {
+            return (
+              <Field key={id}>
+                <p>Work place:</p>
+                <TextInput
+                  name={`work=place=${id}`}
+                  ref={register({ required: true })}
+                  placeholder={place}
+                  onChange={handleChangeExperienceHistory}
+                />
+                <p>Position:</p>
+                <TextInput
+                  name={`work=position=${id}`}
+                  ref={register({ required: true })}
+                  placeholder="Director"
+                  onChange={handleChangeExperienceHistory}
+                />
+                <p>Start date:</p>
+                <TextInput
+                  name={`work=startDate=${id}`}
+                  ref={register({ required: true })}
+                  placeholder="14.04.2015"
+                  onChange={handleChangeExperienceHistory}
+                />
+                <p>End date:</p>
+                <TextInput
+                  name={`work=endDate=${id}`}
+                  ref={register({ required: true })}
+                  placeholder="14.04.2020"
+                  onChange={handleChangeExperienceHistory}
+                />
+              </Field>
+            );
+          })}
           <Button onClick={showContactsField}>Add contacts</Button>
 
+          <Button
+            onClick={() => {
+              showHistory("work");
+            }}
+          >
+            Add work history
+          </Button>
+
+          <Button
+            onClick={() => {
+              showHistory("education");
+            }}
+          >
+            Add education history
+          </Button>
+
           <Button>Add skills</Button>
-
-          <Button>Add work history</Button>
-
-          <Button>Add education history</Button>
 
           <Button>Add description about yourself</Button>
 
