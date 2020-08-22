@@ -6,8 +6,9 @@ import { useStore } from "effector-react";
 
 import { $user } from "../../../store/user";
 import { DateMaskedInput } from "../../../components/DateMaskedInput";
+import { transformData } from "./transformData";
 
-export function Second({ changeStep }) {
+export function Second({ changeStep, template }) {
   const user = useStore($user);
   const { register, handleSubmit, watch, errors } = useForm();
 
@@ -34,7 +35,14 @@ export function Second({ changeStep }) {
   };
 
   const onSubmit = (data) => {
-    const newData = { ...data, birthday: visibilityBirthDate ? data.birthday : 0 };
+    let transformed = transformData(data);
+    let newData = {
+      id: "0",
+      ...transformed,
+      birthday: visibilityBirthDate ? data.birthday : "0",
+      authorId: user._id,
+      template,
+    };
     changeStep("second", newData);
   };
 

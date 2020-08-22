@@ -24,8 +24,8 @@ const UserSchema = new Schema({
     type: String,
   },
   birthday: {
-    type: Schema.Types.Number,
-    default: 0,
+    type: String,
+    default: "0",
   },
   resumes: {
     type: [ResumeSchema],

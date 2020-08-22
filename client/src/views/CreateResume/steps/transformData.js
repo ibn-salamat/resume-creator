@@ -52,9 +52,26 @@ export function transformData(input) {
   );
   const contacts = transformField(_contactsList, "Title", "Value");
 
-  input.contacts = contacts;
-  input.education = education;
-  input.work = work;
+  input.contacts = toLowerCase(contacts);
+  input.education = toLowerCase(education);
+  input.work = toLowerCase(work);
 
   return input;
+}
+
+function toLowerCase(array) {
+  let newArr = [];
+  array.map((item) => {
+    let keys = Object.keys(item);
+    let values = Object.values(item);
+    let obj = {};
+    for (let i = 0; i < keys.length; i++) {
+      let keyValue = keys[i];
+      let lowerKeyValue = keyValue.charAt(0).toLocaleLowerCase() + keyValue.slice(1);
+      obj[lowerKeyValue] = values[i];
+    }
+    newArr.push(obj);
+  });
+
+  return newArr;
 }

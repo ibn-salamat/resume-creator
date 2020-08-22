@@ -41,7 +41,7 @@ router.post("/signin", async (req, res) => {
   try {
     // function
     function wrongData() {
-      res.status(404).json({ message: "Wrong email or password.", error: {} });
+      res.status(400).json({ message: "Wrong email or password.", error: {} });
     }
 
     const { email, password } = req.body;
@@ -63,7 +63,7 @@ router.post("/signin", async (req, res) => {
       wrongData();
     }
   } catch (error) {
-    res.status(500).json({
+    res.status(501).json({
       message: "Something has happened. Try again.",
       error: {
         message: error.stack,

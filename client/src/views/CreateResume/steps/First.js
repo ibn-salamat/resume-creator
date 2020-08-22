@@ -4,11 +4,7 @@ import styled from "styled-components";
 
 const resumeTemplatePreviews = [
   {
-    id: 1,
-    img: process.env.PUBLIC_URL + "/assets/img/resume-templates/resume-template-1.png",
-  },
-  {
-    id: 2,
+    id: "template 1",
     img: process.env.PUBLIC_URL + "/assets/img/resume-templates/resume-template-1.png",
   },
 ];

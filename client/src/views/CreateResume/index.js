@@ -16,14 +16,14 @@ export const CreateResume = () => {
     changeStepStates({ ...stepStates, [step]: state });
   };
 
-  console.log(stepStates);
-
   return (
     <div>
       <h1>Create new</h1>
       {/* steps */}
       {!stepStates.first && <First changeStep={changeStep} />}
-      {stepStates.first && !stepStates.second && <Second changeStep={changeStep} />}
+      {stepStates.first && !stepStates.second && (
+        <Second changeStep={changeStep} template={stepStates.first} />
+      )}
       {stepStates.second && <Third data={stepStates.second} />}
     </div>
   );
