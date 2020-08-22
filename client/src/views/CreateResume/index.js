@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { First } from "./steps/First";
 import { Second } from "./steps/Second";
+import { Third } from "./steps/Third";
 
 export const CreateResume = () => {
   const [stepStates, changeStepStates] = useState({
@@ -22,7 +23,8 @@ export const CreateResume = () => {
       <h1>Create new</h1>
       {/* steps */}
       {!stepStates.first && <First changeStep={changeStep} />}
-      {stepStates.first && <Second />}
+      {stepStates.first && !stepStates.second && <Second changeStep={changeStep} />}
+      {stepStates.second && <Third data={stepStates.second} />}
     </div>
   );
 };

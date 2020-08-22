@@ -1,92 +1,46 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { TextInput, Anchor, Button } from "grommet";
+import { TextInput, Button, TextArea, CheckBox } from "grommet";
 import { useStore } from "effector-react";
-import { NavLink } from "react-router-dom";
+
 import { $user } from "../../../store/user";
+import { DateMaskedInput } from "../../../components/DateMaskedInput";
 
-export function Second() {
+export function Second({ changeStep }) {
   const user = useStore($user);
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, watch, errors } = useForm();
 
-  const [contacts, setContacts] = useState([]);
-  const [experienceHistory, setExperienceHistory] = useState({ work: [], education: [] });
+  const [visibilityBirthDate, setVisibilityBirthDate] = useState(true);
+
+  const [additionalInfo, setAdditionalInfo] = useState({
+    contacts: [],
+    work: [],
+    education: [],
+  });
+
+  const { work, contacts, education } = additionalInfo;
+
+  const addAdditionalInfo = (type) => {
+    setAdditionalInfo({
+      ...additionalInfo,
+      [type]: [...additionalInfo[type], Number(new Date())],
+    });
+  };
+
+  const deleteAdditionalInfo = (type, id) => {
+    const copy = additionalInfo[type].filter((_id) => _id != id);
+    setAdditionalInfo({ ...additionalInfo, [type]: copy });
+  };
 
   const onSubmit = (data) => {
-    console.log(data);
+    const newData = { ...data, birthday: visibilityBirthDate ? data.birthday : 0 };
+    changeStep("second", newData);
   };
 
-  const showContactsField = () => {
-    const _contacts = [
-      ...contacts,
-      {
-        id: Number(new Date()),
-        title: "Email/phone number/website",
-        value: "example@mail.com",
-      },
-    ];
-    setContacts(_contacts);
-  };
-
-  const handleChangeContacts = ({ target }) => {
-    const data = target.name.split("=");
-    const [key, id] = data;
-    const _contacts = contacts.map((contact) =>
-      contact.id == id
-        ? {
-            ...contact,
-            [key]: target.value,
-          }
-        : contact
-    );
-
-    setContacts(_contacts);
-  };
-
-  const deleteContacts = (id) => {
-    const _contacts = contacts.filter((contact) => contact.id != id);
-    setContacts(_contacts);
-  };
-
-  const showHistory = (type) => {
-    const _list = [
-      ...experienceHistory[type],
-      {
-        id: Number(new Date()),
-        place: type + " place",
-        position: type === "education" ? null : "",
-        startDate: "",
-        endDate: "",
-      },
-    ];
-
-    setExperienceHistory({ ...experienceHistory, [type]: _list });
-  };
-
-  const handleChangeExperienceHistory = ({ target }) => {
-    const data = target.name.split("=");
-    const { value } = target;
-    const [experienceType, experienceTitle, id] = data;
-
-    let _experiences = experienceHistory[experienceType];
-
-    _experiences = _experiences.map((experience) =>
-      experience.id == id
-        ? {
-            ...experience,
-            [experienceTitle]: value,
-          }
-        : experience
-    );
-
-    setExperienceHistory({ ...experienceHistory, [experienceType]: _experiences });
-  };
-
-  console.log(experienceHistory);
   return (
     <div>
-      <H2>Second step</H2>
+      <H2>Fill fields</H2>
 
       {user.fullDataLoaded && (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -110,13 +64,19 @@ export function Second() {
 
           <Field>
             <p>Date of birth:</p>
-            <p>if you dont want to show date birth write 00.00.0000</p>
-            <TextInput
+            <DateMaskedInput
               name="birthday"
-              ref={register({ required: true })}
+              register={register({ required: true })}
+              disabled={!visibilityBirthDate}
               defaultValue={
                 user.birthday === 0 ? new Date().toLocaleDateString() : user.birthday
               }
+            />
+
+            <CheckBox
+              label="Show"
+              checked={visibilityBirthDate}
+              onChange={() => setVisibilityBirthDate(!visibilityBirthDate)}
             />
           </Field>
 
@@ -129,83 +89,116 @@ export function Second() {
             />
           </Field>
 
-          {contacts.map(({ title, value, id }) => {
+          {contacts.map((id) => {
             return (
               <Field key={id}>
-                <p>{title}:</p>
+                <p>{watch(`%%%_contactTitle_${id}`)}:</p>
                 <TextInput
-                  name={"title=" + id}
+                  name={"%%%_contactTitle_" + id}
                   ref={register({ required: true })}
-                  placeholder={title}
-                  onChange={handleChangeContacts}
+                  placeholder="My email/phone number/website"
                 />
 
                 <TextInput
-                  name={"value=" + id}
+                  name={"%%%_contactValue_" + id}
                   ref={register({ required: true })}
-                  placeholder={value}
-                  onChange={handleChangeContacts}
+                  placeholder="example@email.com"
                 />
-                <Button onClick={() => deleteContacts(id)}>Delete</Button>
+                <Button onClick={() => deleteAdditionalInfo("contacts", id)}>
+                  Delete
+                </Button>
               </Field>
             );
           })}
 
-          {experienceHistory.work.map(({ id, place, position, startDate, endDate }) => {
+          {work.map((id) => {
             return (
               <Field key={id}>
                 <p>Work place:</p>
                 <TextInput
-                  name={`work=place=${id}`}
+                  name={`%%%_workPlace_${id}`}
                   ref={register({ required: true })}
-                  placeholder={place}
-                  onChange={handleChangeExperienceHistory}
+                  placeholder="KFC"
                 />
                 <p>Position:</p>
+
                 <TextInput
-                  name={`work=position=${id}`}
+                  name={`%%%_workPosition_${id}`}
                   ref={register({ required: true })}
                   placeholder="Director"
-                  onChange={handleChangeExperienceHistory}
                 />
                 <p>Start date:</p>
-                <TextInput
-                  name={`work=startDate=${id}`}
-                  ref={register({ required: true })}
+                <DateMaskedInput
+                  name={`%%%_workStartDate_${id}`}
+                  register={register({ required: true })}
                   placeholder="14.04.2015"
-                  onChange={handleChangeExperienceHistory}
                 />
+
                 <p>End date:</p>
-                <TextInput
-                  name={`work=endDate=${id}`}
-                  ref={register({ required: true })}
+                <DateMaskedInput
+                  name={`%%%_workEndDate_${id}`}
+                  register={register({ required: true })}
                   placeholder="14.04.2020"
-                  onChange={handleChangeExperienceHistory}
                 />
+
+                <Button onClick={() => deleteAdditionalInfo("work", id)}>Delete</Button>
               </Field>
             );
           })}
-          <Button onClick={showContactsField}>Add contacts</Button>
 
-          <Button
-            onClick={() => {
-              showHistory("work");
-            }}
-          >
-            Add work history
-          </Button>
+          {education.map((id) => {
+            return (
+              <Field key={id}>
+                <p>Education place:</p>
+                <TextInput
+                  name={`%%%_educationPlace_${id}`}
+                  ref={register({ required: true })}
+                  placeholder="Harvard"
+                />
+                <p>Profession:</p>
+                <TextInput
+                  name={`%%%_educationProfession_${id}`}
+                  ref={register({ required: true })}
+                  placeholder="Designer"
+                />
+                <p>Start date:</p>
+                <DateMaskedInput
+                  name={`%%%_educationStartDate_${id}`}
+                  register={register({ required: true })}
+                  placeholder="14.04.2015"
+                />
+                <p>End date:</p>
+                <DateMaskedInput
+                  name={`%%%_educationEndDate_${id}`}
+                  register={register({ required: true })}
+                  placeholder="14.04.2020"
+                />
+                <Button onClick={() => deleteAdditionalInfo("education", id)}>
+                  Delete
+                </Button>
+              </Field>
+            );
+          })}
 
-          <Button
-            onClick={() => {
-              showHistory("education");
-            }}
-          >
+          <Field>
+            <p>Skills:</p>
+            <TextInput
+              name="skills"
+              ref={register({ required: true })}
+              placeholder="Microsoft Office, English, Python..."
+            ></TextInput>
+          </Field>
+
+          <Field>
+            <p>About yourself:</p>
+            <TextArea name="about" ref={register({ required: true })}></TextArea>
+          </Field>
+
+          <Button onClick={() => addAdditionalInfo("contacts")}>Add contacts</Button>
+          <Button onClick={() => addAdditionalInfo("work")}>Add work history</Button>
+          <Button onClick={() => addAdditionalInfo("education")}>
             Add education history
           </Button>
-
-          <Button>Add skills</Button>
-
-          <Button>Add description about yourself</Button>
 
           <Button primary type="submit">
             Next
@@ -220,11 +213,8 @@ const H2 = styled.h2`
   font-weight: 100;
 `;
 
-const ColoredNavLink = styled(NavLink)`
-  color: #7d4cdb;
-`;
-
 const Field = styled.div`
   border: 1px solid red;
   margin: 10px 0;
+  padding: 7px 5px;
 `;
