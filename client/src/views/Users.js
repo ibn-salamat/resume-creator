@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
-import { getUsers } from "../api/user";
 import { useStore } from "effector-react";
+import { Link, NavLink } from "react-router-dom";
+import { Anchor } from "grommet";
+
+import { getUsers } from "../api/user";
 import { $usersList } from "../store/usersList";
+import { A } from "../utils/styles";
 
 export const Users = () => {
   const users = useStore($usersList);
-  async function asyncGetUsers(length) {
-    await getUsers(10);
-  }
   useEffect(() => {
-    asyncGetUsers(10);
+    getUsers("all");
   }, []);
 
   console.log(users);
@@ -18,8 +19,15 @@ export const Users = () => {
       <h1>Users</h1>
       {users === null && <p>Loading</p>}
       {users &&
-        users.map((user) => {
-          return <p key={user._id}>{user.name}</p>;
+        users.map(({ name, lastname, _id, resumes }) => {
+          return (
+            <div key={_id}>
+              <A to={"users/" + _id} as={NavLink} color="#7D4CDB">
+                {name} {lastname}
+              </A>
+              {resumes.length !== 0 && <p>{resumes.length} resumes</p>}
+            </div>
+          );
         })}
     </div>
   );

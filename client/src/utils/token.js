@@ -26,3 +26,6 @@ export function getToken() {
 export function setToken(token) {
   localStorage.setItem("resume-app-token", JSON.stringify(token));
 }
+export function removeToken() {
+  localStorage.removeItem("resume-app-token");
+}

@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const User = require("../models/user");
+const { Mongoose } = require("mongoose");
 
 const router = Router();
 
@@ -7,7 +8,9 @@ const router = Router();
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findOne({ _id: id }).select("-password");
+    const user = await User.findOne({ _id: id }).select(
+      "name email gender lastname birthday resumes._id resumes.title"
+    );
     res.json({
       message: "Success",
       data: user,
@@ -22,11 +25,8 @@ router.get("/list/:length", async (req, res) => {
   const { length } = req.params;
 
   try {
-    if (isNaN(Number(length))) throw new Error("Invalid length of users");
-
-    let users = await User.find()
-      .select("-password")
-      .limit(+length);
+    if (length != "all") throw new Error("Invalid length of users");
+    let users = await User.find().select("name lastname resumes resumes._id").lean();
 
     res.status(200).json({
       message: "Success",
@@ -34,7 +34,12 @@ router.get("/list/:length", async (req, res) => {
       length: users.length,
     });
   } catch (error) {
-    res.status(404).json({ message: "Error", error: error.stack });
+    res
+      .status(400)
+      .json({
+        message: error.message || "Something has happened. Try again.",
+        error: error.stack,
+      });
   }
 });
 

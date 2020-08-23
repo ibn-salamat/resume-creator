@@ -4,11 +4,13 @@ import { SignIn } from "../views/SignIn";
 import { MyProfile } from "../views/MyProfile";
 import { Users } from "../views/Users";
 import { CreateResume } from "../views/CreateResume/";
+import { User } from "../views/User";
+import { Resumes } from "../views/Resumes";
+import { Resume } from "../views/Resume";
 
 export const routes = [
   {
     path: "/",
-    exact: true,
     component: Home,
   },
   {
@@ -28,7 +30,19 @@ export const routes = [
     component: Users,
   },
   {
+    path: "/users/:userId",
+    component: User,
+  },
+  {
     path: "/resumes/create",
     component: CreateResume,
+  },
+  {
+    path: "/resumes",
+    component: Resumes,
+  },
+  {
+    path: "/resumes/:resumeId",
+    component: Resume,
   },
 ];

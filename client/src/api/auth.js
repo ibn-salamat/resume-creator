@@ -3,7 +3,7 @@ import { setToken } from "../utils/token";
 import { userChange } from "../store/user";
 
 export const signUp = async (newUser) => {
-  const data = await postRequest(API_SIGNUP, newUser);
+  await postRequest(API_SIGNUP, newUser);
 };
 
 export const signIn = async (user) => {

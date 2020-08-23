@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, TextInput } from "grommet";
+import { useHistory } from "react-router-dom";
 
 import { transformData } from "./transformData";
 import { saveResume } from "../../../api/resume";
+import { getUserById } from "../../../api/user";
 
 export function Third({ data }) {
+  const history = useHistory();
   const [titleResume, setTitleResume] = useState("");
   const resume = { ...data };
 
-  const create = () => {
+  const create = async () => {
     resume.title = titleResume;
     if (titleResume.trim().length > 5) {
-      saveResume(resume);
+      await saveResume(resume);
+      await getUserById(resume.authorId);
+      history.push("/myprofile");
     }
   };
 

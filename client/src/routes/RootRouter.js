@@ -8,10 +8,10 @@ export const RootRouter = () => {
   return (
     <Switch>
       {routes.map((route) => {
-        const { path, component, exact } = route;
-        const routeProps = { path, component, exact: !!exact };
+        const { path, component } = route;
+        const routeProps = { path, component };
 
-        return <Route key={path} {...routeProps} />;
+        return <Route key={path} {...routeProps} exact />;
       })}
     </Switch>
   );

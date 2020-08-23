@@ -1,20 +1,20 @@
 register+
 login+
-
 get user by id+
-
 get users list+
+add resume+
+get resume by id+
 
-add resume
 update resume
 delete resume
+loader btn
+loader background
+toastify
 
 
-get resume by id
 
 
-
-
+add resume to routers
 
 
 download pdf resume
