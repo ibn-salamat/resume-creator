@@ -38,7 +38,7 @@ export function User() {
           </p>
           <p>Resumes:</p>
           {resumes.map(({ title, _id }) => (
-            <A key={_id} to={`/resumes/${_id}`} color="#7D4CDB" as={NavLink}>
+            <A key={_id} to={`/resumes/get/${_id}`} color="#7D4CDB" as={NavLink}>
               {title}
             </A>
           ))}

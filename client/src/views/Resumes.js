@@ -30,7 +30,7 @@ export function Resumes() {
         return (
           <div key={_id}>
             <Resume>
-              <A to={"resumes/" + _id} as={NavLink} color="#7D4CDB">
+              <A to={"resumes/get/" + _id} as={NavLink} color="#7D4CDB">
                 {title}
               </A>
               <br />

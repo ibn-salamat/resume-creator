@@ -7,6 +7,7 @@ import { CreateResume } from "../views/CreateResume/";
 import { User } from "../views/User";
 import { Resumes } from "../views/Resumes";
 import { Resume } from "../views/Resume";
+import { EditResume } from "../views/EditResume";
 
 export const routes = [
   {
@@ -42,7 +43,11 @@ export const routes = [
     component: Resumes,
   },
   {
-    path: "/resumes/:resumeId",
+    path: "/resumes/get/:resumeId",
     component: Resume,
+  },
+  {
+    path: "/resumes/edit/:resumeId",
+    component: EditResume,
   },
 ];

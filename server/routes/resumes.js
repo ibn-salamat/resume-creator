@@ -26,19 +26,33 @@ router.post("/save/:id", async (req, res) => {
       res.status(200).json({
         message: "Successful created",
       });
+    } else {
+      const users = await User.find().select("resumes");
+      const resumes = [];
+      users.map((user) => user.resumes.map((resume) => resumes.push(resume)));
+
+      let resume = resumes.find((resume) => resume._id == id);
+      if (!resume) throw new Error("Resume is not found!");
+      resume = { ...req.body };
+      delete resume.id;
+      delete resume.authorId;
+
+      let updatedResumes = resumes
+        .filter((_resume) => _resume.authorId == resume.authorId)
+        .map((_resume) => {
+          if (_resume._id == resume._id) {
+            _resume = { ..._resume, ...resume };
+          }
+          return _resume;
+        });
+
+      await User.findByIdAndUpdate(resume.authorId, { resumes: updatedResumes });
+      res.json({ message: "success" });
     }
   } catch (error) {
-    if (error.message == "validate") {
-      res.status(400).json({
-        message: "Wrong data",
-        error: {
-          message: error.stack,
-        },
-      });
-      return;
-    }
+    console.log(error);
     res.status(501).json({
-      message: "Something has happened. Try again.",
+      message: error.message,
       error: {
         message: error.stack,
       },

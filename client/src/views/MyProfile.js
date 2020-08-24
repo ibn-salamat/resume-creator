@@ -23,7 +23,7 @@ export const MyProfile = () => {
               <h3>Resumes list: </h3>
               {user.resumes.map(({ title, _id }) => (
                 <div key={_id}>
-                  <A to={"resumes/" + _id} as={NavLink} color="#7D4CDB">
+                  <A to={"resumes/get/" + _id} as={NavLink} color="#7D4CDB">
                     {title}
                   </A>
                 </div>
