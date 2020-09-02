@@ -62,6 +62,7 @@ export function transformData(input) {
 function toLowerCase(array) {
   let newArr = [];
   array.map((item) => {
+    delete item.id;
     let keys = Object.keys(item);
     let values = Object.values(item);
     let obj = {};

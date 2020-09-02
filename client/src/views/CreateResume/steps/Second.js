@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { TextInput, Button, TextArea, CheckBox } from "grommet";
 import { useStore } from "effector-react";
+import uid from "uid";
 
 import { $user } from "../../../store/user";
 import { DateMaskedInput } from "../../../components/DateMaskedInput";
@@ -25,7 +26,7 @@ export function Second({ changeStep, template }) {
   const addAdditionalInfo = (type) => {
     setAdditionalInfo({
       ...additionalInfo,
-      [type]: [...additionalInfo[type], Number(new Date())],
+      [type]: [...additionalInfo[type], uid()],
     });
   };
 

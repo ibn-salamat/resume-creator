@@ -4,7 +4,7 @@ const User = require("../models/user");
 
 const router = Router();
 
-// Create Change
+// сreate / update
 router.post("/save/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -35,17 +35,15 @@ router.post("/save/:id", async (req, res) => {
       if (!resume) throw new Error("Resume is not found!");
       resume = { ...req.body };
       delete resume.id;
-      delete resume.authorId;
 
       let updatedResumes = resumes
         .filter((_resume) => _resume.authorId == resume.authorId)
         .map((_resume) => {
-          if (_resume._id == resume._id) {
+          if (_resume._id == id) {
             _resume = { ..._resume, ...resume };
           }
           return _resume;
         });
-
       await User.findByIdAndUpdate(resume.authorId, { resumes: updatedResumes });
       res.json({ message: "success" });
     }
@@ -53,6 +51,48 @@ router.post("/save/:id", async (req, res) => {
     console.log(error);
     res.status(501).json({
       message: error.message,
+      error: {
+        message: error.stack,
+      },
+    });
+  }
+});
+
+// delete
+router.post("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    res.status(200).json({
+      message: "Successful updated.",
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message || "Something has happened. Try again.",
+      error: {
+        message: error.stack,
+      },
+    });
+  }
+});
+
+// get resume by id
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const users = await User.find().select("resumes").lean();
+    const resumes = [];
+    users.map((user) => user.resumes.map((resume) => resumes.push(resume)));
+    const resume = resumes.find((resume) => resume._id == id);
+
+    if (resume) {
+      res.json({ message: "Success", data: resume });
+    } else {
+      throw new Error("Resume is not found.");
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: error.message || "Something has happened. Try again.",
       error: {
         message: error.stack,
       },
@@ -85,28 +125,4 @@ router.get("/list/:length", async (req, res) => {
   }
 });
 
-// get resume by id
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const users = await User.find().select("resumes").lean();
-    const resumes = [];
-    users.map((user) => user.resumes.map((resume) => resumes.push(resume)));
-    const resume = resumes.find((resume) => resume._id == id);
-
-    if (resume) {
-      res.json({ message: "Success", data: resume });
-    } else {
-      throw new Error("Resume is not found.");
-    }
-  } catch (error) {
-    res.status(400).json({
-      message: error.message || "Something has happened. Try again.",
-      error: {
-        message: error.stack,
-      },
-    });
-  }
-});
 module.exports = router;

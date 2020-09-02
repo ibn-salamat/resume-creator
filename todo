@@ -4,8 +4,8 @@ get user by id+
 get users list+
 add resume+
 get resume by id+
+update resume+
 
-update resume
 delete resume
 
 loader btn
@@ -16,8 +16,6 @@ toastify
 
 
 add resume to routers
-
-
 download pdf resume
 
 infinite scroll
