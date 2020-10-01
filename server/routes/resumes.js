@@ -59,11 +59,15 @@ router.post("/save/:id", async (req, res) => {
 });
 
 // delete
-router.post("/:id", async (req, res) => {
+router.post("/delete/:id", async (req, res) => {
   const { id } = req.params;
   try {
+    const current = await Resume.findByIdAndDelete(id);
+
+    if (!current) throw new Error("Resume is not found!");
+
     res.status(200).json({
-      message: "Successful updated.",
+      message: "Successful deleted.",
     });
   } catch (error) {
     res.status(400).json({
