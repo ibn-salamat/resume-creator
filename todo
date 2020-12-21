@@ -6,7 +6,7 @@ add resume+
 get resume by id+
 update resume+
 
-delete resume
+delete resume+
 
 loader btn
 loader background
