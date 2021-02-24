@@ -1,5 +1,5 @@
 import React from "react";
 
-export const ButtonWithLoader = () => {
+export const CButton = () => {
   return <div></div>;
 };
