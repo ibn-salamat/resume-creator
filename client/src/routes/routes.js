@@ -25,6 +25,7 @@ export const routes = [
   {
     path: "/myprofile",
     component: MyProfile,
+    isPrivate: true,
   },
   {
     path: "/users",
@@ -49,5 +50,6 @@ export const routes = [
   {
     path: "/resumes/edit/:resumeId",
     component: EditResume,
+    isPrivate: true,
   },
 ];

@@ -1,4 +1,5 @@
-import { postRequest, API_SIGNUP, API_SIGNIN } from "./config";
+import { API_SIGNUP, API_SIGNIN } from "./config";
+import { postRequest } from "../utils/requests";
 import { setToken } from "../utils/token";
 import { userChange } from "../store/user";
 

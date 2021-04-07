@@ -1,4 +1,5 @@
-import { getRequest, API_GET_USER_DATA, API_GET_USERS } from "./config";
+import { getRequest } from "../utils/requests";
+import { API_GET_USER_DATA, API_GET_USERS } from "./config";
 import { updateUsersList } from "../store/usersList";
 import { GET_USER_BY_ID } from "../store/loader";
 import { userChange } from "../store/user";
