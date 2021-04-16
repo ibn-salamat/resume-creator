@@ -5,7 +5,7 @@ import { useStore } from "effector-react";
 
 import { $loader } from "../store/loader";
 import { getResumes } from "../api/resume";
-import { A } from "../utils/styles";
+import { SNavLink } from "../utils/styles";
 import styled from "styled-components";
 
 export function Resumes() {
@@ -30,14 +30,14 @@ export function Resumes() {
         return (
           <div key={_id}>
             <Resume>
-              <A to={"resumes/get/" + _id} as={NavLink} color="#7D4CDB">
+              <SNavLink to={"resumes/get/" + _id} as={NavLink} color="#7D4CDB">
                 {title}
-              </A>
+              </SNavLink>
               <br />
 
-              <A to={"users/" + authorId} as={NavLink} color="#7D4CDB">
+              <SNavLink to={"users/" + authorId} as={NavLink} color="#7D4CDB">
                 {name} {lastname}
-              </A>
+              </SNavLink>
             </Resume>
           </div>
         );

@@ -5,7 +5,7 @@ import { Anchor } from "grommet";
 
 import { getUsers } from "../api/user";
 import { $usersList } from "../store/usersList";
-import { A } from "../utils/styles";
+import { SNavLink } from "../utils/styles";
 
 export const Users = () => {
   const users = useStore($usersList);
@@ -22,9 +22,9 @@ export const Users = () => {
         users.map(({ name, lastname, _id, resumes }) => {
           return (
             <div key={_id}>
-              <A to={"users/" + _id} as={NavLink} color="#7D4CDB">
+              <SNavLink to={"users/" + _id} as={NavLink} color="#7D4CDB">
                 {name} {lastname}
-              </A>
+              </SNavLink>
               {resumes.length !== 0 && <p>{resumes.length} resumes</p>}
             </div>
           );

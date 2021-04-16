@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Menu, Header as HeaderComponent, Button } from "grommet";
 import { Home } from "grommet-icons";
 import { useHistory, NavLink } from "react-router-dom";
+
 import { removeToken } from "../utils/token";
 import { userChange } from "../store/user";
 

@@ -8,8 +8,7 @@ update resume+
 
 delete resume+
 
-loader btn
-loader background
+loader btn+
 toastify
 
 test back fron

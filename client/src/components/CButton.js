@@ -5,7 +5,6 @@ export const CButton = ({ loading, children, ...props }) => {
   return (
     <Button
       hoverIndicator="background"
-      primary
       label={children}
       icon={
         loading ? (

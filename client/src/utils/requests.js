@@ -1,3 +1,5 @@
+import { ToastContainer, toast } from "react-toastify";
+
 import { baseURL } from "../api/config";
 import { getToken } from "../utils/token";
 import { setLoader, $loader } from "../store/loader";
@@ -26,7 +28,7 @@ export function postRequest({ url, body, options }) {
       if (!res.ok) throw new Error(res.statusText);
       resolve(data);
     } catch (error) {
-      console.error(error);
+      toast.error(error.message || "Something went wrong");
     } finally {
       if (loader) {
         changeLoader(loader, false);

@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "effector": "^21.2.1",
     "effector-react": "^21.0.4",
-    "grommet": "^2.14.0",
+    "grommet": "^2.17.1",
     "grommet-icons": "^4.4.0",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",

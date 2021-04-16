@@ -4,7 +4,7 @@ import { useStore } from "effector-react";
 
 import { getUserById } from "../api/user";
 import { $loader } from "../store/loader";
-import { A } from "../utils/styles";
+import { SNavLink } from "../utils/styles";
 
 export function User() {
   const params = useParams();
@@ -38,14 +38,14 @@ export function User() {
           </p>
           <p>Resumes:</p>
           {resumes.map(({ title, _id }) => (
-            <A
+            <SNavLink
               key={_id}
               to={`/resumes/get/${_id}`}
               color="#7D4CDB"
               as={NavLink}
             >
               {title}
-            </A>
+            </SNavLink>
           ))}
         </>
       )}

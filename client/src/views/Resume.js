@@ -6,7 +6,7 @@ import { Button } from "grommet";
 import { $loader } from "../store/loader";
 import { getResumeById } from "../api/resume";
 import { $user } from "../store/user";
-import { A } from "../utils/styles";
+import { SNavLink } from "../utils/styles";
 
 export function Resume() {
   const params = useParams();
@@ -35,9 +35,9 @@ export function Resume() {
         <div>
           <p>{resume.title}</p>
           {user && resume.authorId === user.id && (
-            <A as={NavLink} to={`/resumes/edit/${resume._id}`}>
+            <SNavLink as={NavLink} to={`/resumes/edit/${resume._id}`}>
               Edit
-            </A>
+            </SNavLink>
           )}
         </div>
       )}

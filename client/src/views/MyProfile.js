@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { $user } from "../store/user";
 import { useStore } from "effector-react";
-
 import { Button } from "grommet";
 import { Link, NavLink } from "react-router-dom";
-import { A } from "../utils/styles";
+
+import { $user } from "../store/user";
+
+import { SNavLink } from "../utils/styles";
 
 export const MyProfile = () => {
   const user = useStore($user);
@@ -23,9 +24,13 @@ export const MyProfile = () => {
               <h3>Resumes list: </h3>
               {user.resumes.map(({ title, _id }) => (
                 <div key={_id}>
-                  <A to={"resumes/get/" + _id} as={NavLink} color="#7D4CDB">
+                  <SNavLink
+                    to={"resumes/get/" + _id}
+                    as={NavLink}
+                    color="#7D4CDB"
+                  >
                     {title}
-                  </A>
+                  </SNavLink>
                 </div>
               ))}
             </>
