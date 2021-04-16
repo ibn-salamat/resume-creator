@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { useStore } from "effector-react";
-import { Button } from "grommet";
 
 import { $loader } from "../store/loader";
 import { getResumeById } from "../api/resume";

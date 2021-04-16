@@ -17,11 +17,11 @@ export const SignIn = () => {
 
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = async (data) => {
+  async function onSubmit(data) {
     handleSubmit();
     await signIn(data);
     history.push("/myprofile");
-  };
+  }
 
   return (
     <Card

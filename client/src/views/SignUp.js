@@ -7,7 +7,7 @@ import { signUp } from "../api/auth";
 export const SignUp = () => {
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = async (data) => {
+  async function onSubmit(data) {
     const newData = {
       ...data,
       gender,
@@ -18,7 +18,7 @@ export const SignUp = () => {
     delete newData.repassword;
     await signUp(newData);
     history.push("/");
-  };
+  }
 
   const [gender, setGender] = useState("male");
   return (

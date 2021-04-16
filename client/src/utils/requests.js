@@ -1,10 +1,10 @@
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import { baseURL } from "../api/config";
 import { getToken } from "../utils/token";
 import { setLoader, $loader } from "../store/loader";
 
-export function postRequest({ url, body, options }) {
+export function postRequest({ url, body, options = {} }) {
   const token = getToken();
 
   const { loader } = options;
@@ -37,7 +37,7 @@ export function postRequest({ url, body, options }) {
   });
 }
 
-export function getRequest({ url, options }) {
+export function getRequest({ url, options = {} }) {
   const token = getToken();
 
   const { loader } = options;
