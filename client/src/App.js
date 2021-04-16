@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { RootRouter } from "./routes/RootRouter";
+import { useStore } from "effector-react";
 import { Grommet } from "grommet";
+
+import { RootRouter } from "./routes/RootRouter";
 import { Header } from "./components/Header";
 
-import { useStore } from "effector-react";
 import { $user } from "./store/user";
 import { checkToken } from "./utils/token";
 import { getUserById } from "./api/user";

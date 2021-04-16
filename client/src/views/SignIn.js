@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { TextInput, Button, Select } from "grommet";
+import { TextInput, Select } from "grommet";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { CButton } from "../components/CButton";
 import { signIn } from "../api/auth";
 
 export const SignIn = () => {
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
+
   const onSubmit = async (data) => {
     await signIn(data);
     history.push("/myprofile");
@@ -27,13 +30,15 @@ export const SignIn = () => {
           <TextInput name="password" ref={register({ required: true })} />
         </div>
 
-        <Button
-          hoverIndicator="background"
-          type="submit"
-          primary
-          label="Submit"
-          icon={<div className="lds-dual-ring"></div>}
-        ></Button>
+        <CButton
+          loading={loading}
+          onClick={() => {
+            console.log(loading)
+            setLoading(!loading);
+          }}
+        >
+          Sign In
+        </CButton>
       </form>
     </div>
   );

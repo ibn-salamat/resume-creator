@@ -1,5 +1,21 @@
 import React from "react";
+import { Button } from "grommet";
 
-export const CButton = () => {
-  return <div></div>;
+export const CButton = ({ loading, children, ...props }) => {
+  console.log(loading);
+  return (
+    <Button
+      hoverIndicator="background"
+      primary
+      label={children}
+      icon={
+        loading ? (
+          <div className="lds-dual-ring"></div>
+        ) : (
+          <div style={{ width: 20, margin: "-2px 0" }}></div>
+        )
+      }
+      {...props}
+    ></Button>
+  );
 };
