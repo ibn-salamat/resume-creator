@@ -8,7 +8,7 @@ export const signUp = async (newUser) => {
 };
 
 export const signIn = async (user) => {
-  const { token, userId } = await postRequest(API_SIGNIN, user);
+  const { token, userId } = await postRequest(API_SIGNIN, user, API_SIGNIN);
   setToken(token);
   userChange({ id: userId });
 };

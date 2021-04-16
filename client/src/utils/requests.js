@@ -2,8 +2,11 @@ import { baseURL } from "../api/config";
 import { getToken } from "../utils/token";
 import { changeLoader } from "../utils/functions";
 
-export function postRequest(url, body) {
+export function postRequest(url, body, loader) {
   const token = getToken();
+  if (loader) {
+    changeLoader(loader, true);
+  }
   return new Promise(async (resolve) => {
     try {
       const res = await fetch(baseURL + url, {
@@ -22,6 +25,9 @@ export function postRequest(url, body) {
     } catch (error) {
       console.error(error);
     } finally {
+      if (loader) {
+        changeLoader(loader, false);
+      }
     }
   });
 }

@@ -7,7 +7,7 @@ import { TextInput, CheckBox, Button } from "grommet";
 import uid from "uid";
 
 import { getResumeById, saveResume } from "../api/resume";
-import { $loader, GET_RESUME_BY_ID } from "../store/loader";
+import { $loader } from "../store/loader";
 import { DateMaskedInput } from "../components/DateMaskedInput";
 import { transformData } from "./CreateResume/steps/transformData";
 
@@ -74,7 +74,7 @@ export function EditResume() {
   return (
     <div>
       <h1>Edit resume</h1>
-      {loader[GET_RESUME_BY_ID] && <p>Loading</p>}
+      {loader && <p>Loading</p>}
       {about && (
         <>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -187,7 +187,9 @@ export function EditResume() {
                     defaultValue={endDate}
                   />
 
-                  <Button onClick={() => deleteAdditionalInfo("work", id)}>Delete</Button>
+                  <Button onClick={() => deleteAdditionalInfo("work", id)}>
+                    Delete
+                  </Button>
                 </Field>
               );
             })}
@@ -230,13 +232,17 @@ export function EditResume() {
               );
             })}
 
-            <Button onClick={() => addAdditionalInfo("contacts", { id: uid() })}>
+            <Button
+              onClick={() => addAdditionalInfo("contacts", { id: uid() })}
+            >
               Add contacts
             </Button>
             <Button onClick={() => addAdditionalInfo("work", { id: uid() })}>
               Add work history
             </Button>
-            <Button onClick={() => addAdditionalInfo("education", { id: uid() })}>
+            <Button
+              onClick={() => addAdditionalInfo("education", { id: uid() })}
+            >
               Add education history
             </Button>
 

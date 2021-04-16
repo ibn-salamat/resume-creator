@@ -3,7 +3,7 @@ import { useParams, NavLink } from "react-router-dom";
 import { useStore } from "effector-react";
 import { Button } from "grommet";
 
-import { $loader, GET_RESUME_BY_ID } from "../store/loader";
+import { $loader } from "../store/loader";
 import { getResumeById } from "../api/resume";
 import { $user } from "../store/user";
 import { A } from "../utils/styles";
@@ -29,7 +29,7 @@ export function Resume() {
     <div>
       <h1>Resume</h1>
 
-      {loader[GET_RESUME_BY_ID] ? (
+      {loader ? (
         <p>Loading</p>
       ) : (
         <div>

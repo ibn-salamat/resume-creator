@@ -3,10 +3,10 @@ import { Link, NavLink } from "react-router-dom";
 import { Anchor } from "grommet";
 import { useStore } from "effector-react";
 
+import { $loader } from "../store/loader";
 import { getResumes } from "../api/resume";
 import { A } from "../utils/styles";
 import styled from "styled-components";
-import { GET_RESUMES_LIST, $loader } from "../store/loader";
 
 export function Resumes() {
   const [resumes, setResumes] = useState([]);
@@ -20,11 +20,11 @@ export function Resumes() {
     asyncGetResumes();
   }, []);
 
-  console.log(loader[GET_RESUMES_LIST]);
+  console.log(loader);
   return (
     <div>
       <h1>Resumes list</h1>
-      {loader[GET_RESUMES_LIST] && <p>Loading</p>}
+      {loader && <p>Loading</p>}
 
       {resumes.map(({ _id, name, lastname, title, authorId }) => {
         return (

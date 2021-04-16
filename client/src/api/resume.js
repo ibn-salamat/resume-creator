@@ -3,7 +3,6 @@ import {
   API_GET_RESUMES,
   API_GET_RESUME_BY_ID,
 } from "./config";
-import { GET_RESUME_BY_ID, GET_RESUMES_LIST } from "../store/loader";
 
 import { getRequest, postRequest } from "../utils/requests";
 
@@ -16,14 +15,14 @@ export const saveResume = async (resume) => {
 
 export const getResumes = async (length) => {
   const url = API_GET_RESUMES(length);
-  const data = await getRequest(url, GET_RESUMES_LIST);
+  const data = await getRequest(url);
 
   return data;
 };
 
 export const getResumeById = async (id) => {
   const url = API_GET_RESUME_BY_ID(id);
-  const data = await getRequest(url, GET_RESUME_BY_ID);
+  const data = await getRequest(url);
 
   return data;
 };

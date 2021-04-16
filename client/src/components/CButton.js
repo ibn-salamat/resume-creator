@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "grommet";
 
 export const CButton = ({ loading, children, ...props }) => {
-  console.log(loading);
   return (
     <Button
       hoverIndicator="background"
