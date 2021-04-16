@@ -4,11 +4,24 @@ import { setToken } from "../utils/token";
 import { userChange } from "../store/user";
 
 export const signUp = async (newUser) => {
-  await postRequest(API_SIGNUP, newUser);
+  await postRequest({
+    url: API_SIGNUP,
+    body: newUser,
+    options: {
+      loader: "sign_up",
+    },
+  });
 };
 
 export const signIn = async (user) => {
-  const { token, userId } = await postRequest(API_SIGNIN, user, API_SIGNIN);
+  const { token, userId } = await postRequest({
+    url: API_SIGNIN,
+    body: user,
+    options: {
+      loader: "sign_in",
+    },
+  });
+
   setToken(token);
   userChange({ id: userId });
 };

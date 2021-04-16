@@ -1,12 +1,15 @@
 import { baseURL } from "../api/config";
 import { getToken } from "../utils/token";
-import { changeLoader } from "../utils/functions";
+import { setLoader, $loader } from "../store/loader";
 
-export function postRequest(url, body, loader) {
+export function postRequest({ url, body, options }) {
   const token = getToken();
+
+  const { loader } = options;
   if (loader) {
     changeLoader(loader, true);
   }
+
   return new Promise(async (resolve) => {
     try {
       const res = await fetch(baseURL + url, {
@@ -32,11 +35,14 @@ export function postRequest(url, body, loader) {
   });
 }
 
-export function getRequest(url, loader) {
+export function getRequest({ url, options }) {
   const token = getToken();
+
+  const { loader } = options;
   if (loader) {
     changeLoader(loader, true);
   }
+
   return new Promise(async (resolve) => {
     try {
       const res = await fetch(baseURL + url, {
@@ -59,4 +65,8 @@ export function getRequest(url, loader) {
       }
     }
   });
+}
+
+function changeLoader(loader, state) {
+  setLoader({ ...$loader.getState(), [loader]: state });
 }

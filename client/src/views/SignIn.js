@@ -40,7 +40,9 @@ export const SignIn = () => {
           {/* {errors.password && "Password is required"} */}
         </div>
 
-        <CButton onClick={handleSubmit(onSubmit)}>Sign In</CButton>
+        <CButton loading={loader.sign_in} onClick={handleSubmit(onSubmit)}>
+          Sign In
+        </CButton>
       </form>
     </div>
   );

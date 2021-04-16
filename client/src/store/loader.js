@@ -5,4 +5,4 @@ export const setLoader = createEvent();
 export const $loader = createStore({});
 
 $loader.on(setLoader, (state, loader) => loader);
-$loader.watch(() => console.log($loader.getState()));
+// $loader.watch(() => console.log($loader.getState()));
